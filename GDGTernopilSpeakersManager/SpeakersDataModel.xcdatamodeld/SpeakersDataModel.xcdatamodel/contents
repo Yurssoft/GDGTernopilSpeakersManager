@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
-    <elements/>
+    <entity name="SMConference" syncable="YES"/>
+    <entity name="SMPresentation" syncable="YES"/>
+    <entity name="SMSpeaker" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="SMSpeaker" positionX="-63" positionY="-18" width="128" height="58"/>
+        <element name="SMConference" positionX="-27" positionY="18" width="128" height="43"/>
+        <element name="SMPresentation" positionX="0" positionY="45" width="128" height="43"/>
+    </elements>
 </model>

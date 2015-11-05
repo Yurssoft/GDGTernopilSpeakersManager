@@ -60,8 +60,8 @@
 		8AB53FF11BEBA641007A1208 /* GDGTernopilSpeakersManager */ = {
 			isa = PBXGroup;
 			children = (
-				8AB53FF51BEBA641007A1208 /* AppDelegate.h */,
 				8AE596341BEBAC030093AF75 /* SpeakersDataModel.xcdatamodeld */,
+				8AB53FF51BEBA641007A1208 /* AppDelegate.h */,
 				8AB53FF61BEBA641007A1208 /* AppDelegate.m */,
 				8AB53FF81BEBA641007A1208 /* ViewController.h */,
 				8AB53FF91BEBA641007A1208 /* ViewController.m */,
