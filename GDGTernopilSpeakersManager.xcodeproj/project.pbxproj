@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8AB53FF41BEBA641007A1208 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB53FF31BEBA641007A1208 /* main.m */; };
-		8AB53FF71BEBA641007A1208 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB53FF61BEBA641007A1208 /* AppDelegate.m */; };
-		8AB53FFA1BEBA641007A1208 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB53FF91BEBA641007A1208 /* ViewController.m */; };
+		8AB53FF71BEBA641007A1208 /* SMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB53FF61BEBA641007A1208 /* SMAppDelegate.m */; };
+		8AB53FFA1BEBA641007A1208 /* SMSpeakersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB53FF91BEBA641007A1208 /* SMSpeakersViewController.m */; };
 		8AB53FFD1BEBA641007A1208 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AB53FFB1BEBA641007A1208 /* Main.storyboard */; };
 		8AB53FFF1BEBA641007A1208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AB53FFE1BEBA641007A1208 /* Assets.xcassets */; };
 		8AB540021BEBA641007A1208 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AB540001BEBA641007A1208 /* LaunchScreen.storyboard */; };
@@ -19,10 +19,10 @@
 /* Begin PBXFileReference section */
 		8AB53FEF1BEBA641007A1208 /* GDGTernopilSpeakersManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GDGTernopilSpeakersManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB53FF31BEBA641007A1208 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		8AB53FF51BEBA641007A1208 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		8AB53FF61BEBA641007A1208 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8AB53FF81BEBA641007A1208 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8AB53FF91BEBA641007A1208 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		8AB53FF51BEBA641007A1208 /* SMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMAppDelegate.h; sourceTree = "<group>"; };
+		8AB53FF61BEBA641007A1208 /* SMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMAppDelegate.m; sourceTree = "<group>"; };
+		8AB53FF81BEBA641007A1208 /* SMSpeakersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMSpeakersViewController.h; sourceTree = "<group>"; };
+		8AB53FF91BEBA641007A1208 /* SMSpeakersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMSpeakersViewController.m; sourceTree = "<group>"; };
 		8AB53FFC1BEBA641007A1208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8AB53FFE1BEBA641007A1208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8AB540011BEBA641007A1208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -61,10 +61,10 @@
 			isa = PBXGroup;
 			children = (
 				8AE596341BEBAC030093AF75 /* SpeakersDataModel.xcdatamodeld */,
-				8AB53FF51BEBA641007A1208 /* AppDelegate.h */,
-				8AB53FF61BEBA641007A1208 /* AppDelegate.m */,
-				8AB53FF81BEBA641007A1208 /* ViewController.h */,
-				8AB53FF91BEBA641007A1208 /* ViewController.m */,
+				8AB53FF51BEBA641007A1208 /* SMAppDelegate.h */,
+				8AB53FF61BEBA641007A1208 /* SMAppDelegate.m */,
+				8AB53FF81BEBA641007A1208 /* SMSpeakersViewController.h */,
+				8AB53FF91BEBA641007A1208 /* SMSpeakersViewController.m */,
 				8AB53FFB1BEBA641007A1208 /* Main.storyboard */,
 				8AB53FFE1BEBA641007A1208 /* Assets.xcassets */,
 				8AB540001BEBA641007A1208 /* LaunchScreen.storyboard */,
@@ -152,8 +152,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AB53FFA1BEBA641007A1208 /* ViewController.m in Sources */,
-				8AB53FF71BEBA641007A1208 /* AppDelegate.m in Sources */,
+				8AB53FFA1BEBA641007A1208 /* SMSpeakersViewController.m in Sources */,
+				8AB53FF71BEBA641007A1208 /* SMAppDelegate.m in Sources */,
 				8AB53FF41BEBA641007A1208 /* main.m in Sources */,
 				8AE596361BEBAC040093AF75 /* SpeakersDataModel.xcdatamodeld in Sources */,
 			);
