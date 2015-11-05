@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
-    <entity name="SMConference" syncable="YES"/>
-    <entity name="SMPresentation" syncable="YES"/>
+    <entity name="SMConference" syncable="YES">
+        <attribute name="date" optional="YES" syncable="YES"/>
+        <attribute name="place" optional="YES" syncable="YES"/>
+        <attribute name="title" optional="YES" syncable="YES"/>
+        <relationship name="presentations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SMPresentation" inverseName="conference" inverseEntity="SMPresentation" syncable="YES"/>
+        <relationship name="speakers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SMSpeaker" inverseName="conferences" inverseEntity="SMSpeaker" syncable="YES"/>
+    </entity>
+    <entity name="SMPresentation" syncable="YES">
+        <attribute name="comments" optional="YES" syncable="YES"/>
+        <attribute name="minutes" optional="YES" syncable="YES"/>
+        <attribute name="title" optional="YES" syncable="YES"/>
+        <relationship name="conference" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SMConference" inverseName="presentations" inverseEntity="SMConference" syncable="YES"/>
+        <relationship name="speaker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SMSpeaker" inverseName="presentation" inverseEntity="SMSpeaker" syncable="YES"/>
+    </entity>
     <entity name="SMSpeaker" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="experience" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="surname" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="conferences" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SMConference" inverseName="speakers" inverseEntity="SMConference" syncable="YES"/>
+        <relationship name="presentation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SMPresentation" inverseName="speaker" inverseEntity="SMPresentation" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SMSpeaker" positionX="-63" positionY="-18" width="128" height="58"/>
-        <element name="SMConference" positionX="-27" positionY="18" width="128" height="43"/>
-        <element name="SMPresentation" positionX="0" positionY="45" width="128" height="43"/>
+        <element name="SMSpeaker" positionX="520" positionY="251" width="128" height="133"/>
+        <element name="SMConference" positionX="171" positionY="50" width="128" height="118"/>
+        <element name="SMPresentation" positionX="-81" positionY="260" width="128" height="118"/>
     </elements>
 </model>
