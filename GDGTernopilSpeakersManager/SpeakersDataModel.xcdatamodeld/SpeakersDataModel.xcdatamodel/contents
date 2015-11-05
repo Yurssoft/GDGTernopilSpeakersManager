@@ -23,8 +23,8 @@
         <relationship name="presentation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SMPresentation" inverseName="speaker" inverseEntity="SMPresentation" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SMSpeaker" positionX="520" positionY="251" width="128" height="133"/>
+        <element name="SMSpeaker" positionX="342" positionY="101" width="128" height="133"/>
         <element name="SMConference" positionX="171" positionY="50" width="128" height="118"/>
-        <element name="SMPresentation" positionX="-81" positionY="260" width="128" height="118"/>
+        <element name="SMPresentation" positionX="-2" positionY="116" width="128" height="118"/>
     </elements>
 </model>
