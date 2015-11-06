@@ -7,6 +7,8 @@
 //
 
 #import "SMSpeakersViewController.h"
+#import "SMDataController.h"
+#import "SMSpeaker.h"
 
 @interface SMSpeakersViewController ()
 
@@ -16,12 +18,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    SMSpeaker *speaker = [[SMDataController sharedController] insertNewSpeaker];
+    speaker.name = @"ONE";
+    [[SMDataController sharedController].managedObjectContext save:nil];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"speaker_cell"];
+    cell.detailTextLabel.text = @"LOL";
+    return cell;
 }
 
 @end

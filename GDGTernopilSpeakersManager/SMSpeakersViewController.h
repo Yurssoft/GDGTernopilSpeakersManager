@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SMSpeakersViewController : UIViewController
+@interface SMSpeakersViewController : UITableViewController
 
 
 @end
