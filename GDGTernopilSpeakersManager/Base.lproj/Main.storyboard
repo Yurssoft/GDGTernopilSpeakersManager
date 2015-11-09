@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Speakers-->
@@ -42,6 +43,9 @@
                                     <animations/>
                                 </tableViewCellContentView>
                                 <animations/>
+                                <connections>
+                                    <segue destination="Bgq-P3-doj" kind="show" action="showDetailViewController:sender:" id="jqk-tS-kdC"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -53,7 +57,39 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Js-Vk-xYI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1161" y="464"/>
+            <point key="canvasLocation" x="1209" y="464"/>
+        </scene>
+        <!--SpeakersDetails-->
+        <scene sceneID="XOf-Qv-HJb">
+            <objects>
+                <viewController title="Speaker details" id="Bgq-P3-doj" userLabel="SpeakersDetails" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Qg9-cK-eL0"/>
+                        <viewControllerLayoutGuide type="bottom" id="WJq-OM-VPr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rkn-F9-E9r">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBx-3F-0Rz">
+                                <rect key="frame" x="20" y="72" width="42" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aBx-3F-0Rz" firstAttribute="leading" secondItem="rkn-F9-E9r" secondAttribute="leadingMargin" id="CpJ-gQ-y8e"/>
+                            <constraint firstItem="aBx-3F-0Rz" firstAttribute="top" secondItem="Qg9-cK-eL0" secondAttribute="bottom" constant="8" symbolic="YES" id="m8S-AP-yY8"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="50g-Xf-0No" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1920" y="464"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9nN-KU-uYT">

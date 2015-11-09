@@ -14,6 +14,7 @@
 		8A2EA69D1BECE3930091800E /* SMSpeaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2EA6951BECE3930091800E /* SMSpeaker.m */; };
 		8A2EA69E1BECE3930091800E /* SMConference+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2EA6971BECE3930091800E /* SMConference+CoreDataProperties.m */; };
 		8A2EA69F1BECE3930091800E /* SMConference.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2EA6991BECE3930091800E /* SMConference.m */; };
+		8A6F2ECA1BF117AC009BFAC3 /* SpeakerDeailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6F2EC91BF117AC009BFAC3 /* SpeakerDeailsViewController.m */; };
 		8AB53FF41BEBA641007A1208 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB53FF31BEBA641007A1208 /* main.m */; };
 		8AB53FF71BEBA641007A1208 /* SMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB53FF61BEBA641007A1208 /* SMAppDelegate.m */; };
 		8AB53FFA1BEBA641007A1208 /* SMSpeakersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB53FF91BEBA641007A1208 /* SMSpeakersViewController.m */; };
@@ -38,6 +39,8 @@
 		8A2EA6971BECE3930091800E /* SMConference+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SMConference+CoreDataProperties.m"; sourceTree = "<group>"; };
 		8A2EA6981BECE3930091800E /* SMConference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMConference.h; sourceTree = "<group>"; };
 		8A2EA6991BECE3930091800E /* SMConference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMConference.m; sourceTree = "<group>"; };
+		8A6F2EC81BF117AC009BFAC3 /* SpeakerDeailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakerDeailsViewController.h; sourceTree = "<group>"; };
+		8A6F2EC91BF117AC009BFAC3 /* SpeakerDeailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeakerDeailsViewController.m; sourceTree = "<group>"; };
 		8AB53FEF1BEBA641007A1208 /* GDGTernopilSpeakersManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GDGTernopilSpeakersManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB53FF31BEBA641007A1208 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8AB53FF51BEBA641007A1208 /* SMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMAppDelegate.h; sourceTree = "<group>"; };
@@ -81,6 +84,28 @@
 			name = NSManagedObjectSubclasses;
 			sourceTree = "<group>";
 		};
+		8A6F2EC61BF11504009BFAC3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8AB53FF81BEBA641007A1208 /* SMSpeakersViewController.h */,
+				8AB53FF91BEBA641007A1208 /* SMSpeakersViewController.m */,
+				8A6F2EC81BF117AC009BFAC3 /* SpeakerDeailsViewController.h */,
+				8A6F2EC91BF117AC009BFAC3 /* SpeakerDeailsViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		8A6F2EC71BF11515009BFAC3 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				8A2EA6791BECCF680091800E /* SMDataController.h */,
+				8A2EA67A1BECCF680091800E /* SMDataController.m */,
+				8AE596341BEBAC030093AF75 /* SpeakersManagerDataModel.xcdatamodeld */,
+				8A2EA6A01BECE39A0091800E /* NSManagedObjectSubclasses */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
 		8AB53FE61BEBA641007A1208 = {
 			isa = PBXGroup;
 			children = (
@@ -100,12 +125,9 @@
 		8AB53FF11BEBA641007A1208 /* GDGTernopilSpeakersManager */ = {
 			isa = PBXGroup;
 			children = (
-				8A2EA6791BECCF680091800E /* SMDataController.h */,
-				8A2EA67A1BECCF680091800E /* SMDataController.m */,
-				8AB53FF81BEBA641007A1208 /* SMSpeakersViewController.h */,
-				8AB53FF91BEBA641007A1208 /* SMSpeakersViewController.m */,
+				8A6F2EC61BF11504009BFAC3 /* Controller */,
 				8AB53FFB1BEBA641007A1208 /* Main.storyboard */,
-				8AE596341BEBAC030093AF75 /* SpeakersManagerDataModel.xcdatamodeld */,
+				8A6F2EC71BF11515009BFAC3 /* Database */,
 				8AB53FF21BEBA641007A1208 /* Supporting Files */,
 			);
 			path = GDGTernopilSpeakersManager;
@@ -114,7 +136,6 @@
 		8AB53FF21BEBA641007A1208 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8A2EA6A01BECE39A0091800E /* NSManagedObjectSubclasses */,
 				8AB53FF51BEBA641007A1208 /* SMAppDelegate.h */,
 				8AB53FF61BEBA641007A1208 /* SMAppDelegate.m */,
 				8AB53FFE1BEBA641007A1208 /* Assets.xcassets */,
@@ -203,6 +224,7 @@
 				8AB53FF71BEBA641007A1208 /* SMAppDelegate.m in Sources */,
 				8A2EA69E1BECE3930091800E /* SMConference+CoreDataProperties.m in Sources */,
 				8AB53FF41BEBA641007A1208 /* main.m in Sources */,
+				8A6F2ECA1BF117AC009BFAC3 /* SpeakerDeailsViewController.m in Sources */,
 				8A2EA67B1BECCF680091800E /* SMDataController.m in Sources */,
 				8AE596361BEBAC040093AF75 /* SpeakersManagerDataModel.xcdatamodeld in Sources */,
 				8A2EA69C1BECE3930091800E /* SMSpeaker+CoreDataProperties.m in Sources */,

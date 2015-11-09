@@ -9,6 +9,7 @@
 #import "SMSpeakersViewController.h"
 #import "SMDataController.h"
 #import "SMSpeaker.h"
+#import "SpeakerDeailsViewController.h"
 
 @interface SMSpeakersViewController () < NSFetchedResultsControllerDelegate >
 
@@ -18,12 +19,9 @@
 
 @implementation SMSpeakersViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-#warning ;dsfksdjfks
-    SMSpeaker *speaker = [[SMDataController sharedController] insertNewSpeaker];
-    speaker.name = @"ONE";
-    [[SMDataController sharedController].managedObjectContext save:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -41,6 +39,20 @@
         [self.navigationController presentViewController:fetchError animated:YES completion:nil];
         NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
+    }
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Speakers_details"])
+    {
+        SpeakerDeailsViewController *speakerDetails = (SpeakerDeailsViewController *) segue.destinationViewController;
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        SMSpeaker *selectedSpeaker = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        speakerDetails.speakerForDetails = selectedSpeaker;
+        return;
     }
 }
 
@@ -64,6 +76,11 @@
 }
 
 #pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.fetchedResultsController.sections.count;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
