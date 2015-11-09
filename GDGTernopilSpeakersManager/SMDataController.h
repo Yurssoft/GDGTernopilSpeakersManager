@@ -14,8 +14,9 @@
 
 @property (strong, nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 
-- (SMSpeaker *)insertNewSpeaker;
-
 + (instancetype)sharedController;
+
+- (SMSpeaker *)insertNewSpeaker;
+- (NSString *)speakerEntityName;
 
 @end

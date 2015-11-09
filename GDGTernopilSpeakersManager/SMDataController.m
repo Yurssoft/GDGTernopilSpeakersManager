@@ -58,11 +58,12 @@
                                                        inManagedObjectContext:self.managedObjectContext];
 }
 
-#pragma mark - Private
-
 - (NSString *)speakerEntityName
 {
     return @"SMSpeaker";
 }
+
+#pragma mark - Private
+
 
 @end
