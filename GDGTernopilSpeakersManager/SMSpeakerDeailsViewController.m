@@ -15,9 +15,9 @@
 
 @interface SMSpeakerDeailsViewController () < UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate >
 
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) SMSpeaker *speaker;
-@property (strong, nonatomic) NSArray *speakerPresentations;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *surnameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *experienceLabel;
@@ -30,7 +30,6 @@
 - (void)setTheSpeakerForDetails:(SMSpeaker *)speakerForDetails
 {
     self.speaker = speakerForDetails;
-    NSAssert(self.speaker, @"Speaker must exist!");
 }
 
 - (void)viewDidLoad
@@ -40,15 +39,6 @@
     self.surnameLabel.text = self.speaker.surname;
     self.experienceLabel.text = [NSString stringWithFormat:@"%@",self.speaker.experience];
     self.birthDateLabel.text = [NSString stringWithFormat:@"%@",self.speaker.birthDate];
-    [self setAndSortArrayOfPresentations];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-#warning make it nsfetched res con!
-    [[SMDataController sharedController].managedObjectContext refreshObject:self.speaker mergeChanges:YES];
-//    self.speaker = [[SMDataController sharedController].managedObjectContext objectWithID:speakerObjectId];
-    [self setAndSortArrayOfPresentations];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -60,12 +50,24 @@
         [addPresentationVC setTheSpeakerForPresentation:self.speaker];
     }
 }
+#pragma mark - Accessors
 
-- (void)setAndSortArrayOfPresentations
+- (NSFetchedResultsController *)fetchedResultsController
 {
-    self.speakerPresentations = self.speaker.presentation.allObjects;
-    NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-    [self.speakerPresentations sortedArrayUsingDescriptors:@[titleSort]];
+    if (_fetchedResultsController) {
+        return _fetchedResultsController;
+    }
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[[SMDataController sharedController] presentationEntityName]];
+    NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:NO selector:@selector(localizedCaseInsensitiveCompare:)];
+    request.sortDescriptors = @[titleSort];
+#warning check this
+    NSManagedObjectContext *moc = [SMDataController sharedController].managedObjectContext;
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                    managedObjectContext:moc
+                                                                      sectionNameKeyPath:nil
+                                                                               cacheName:nil];
+    _fetchedResultsController.delegate = self;
+    return _fetchedResultsController;
 }
 
 #pragma mark - UITableViewDelegate
@@ -73,7 +75,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SMPresentationDetailsViewController *presentationDetails = (SMPresentationDetailsViewController *) [self.storyboard instantiateViewControllerWithIdentifier:@"SMPresentationDetailsViewController"];
-    SMPresentation *selectedPresentation = [self.speakerPresentations objectAtIndex:indexPath.row];
+    SMPresentation *selectedPresentation = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [presentationDetails setThePresentationForDetails:selectedPresentation];
     [self.navigationController pushViewController:presentationDetails animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -85,7 +87,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        SMPresentation *presentation = [self.speakerPresentations objectAtIndex:indexPath.row];
+        SMPresentation *presentation = [self.fetchedResultsController objectAtIndexPath:indexPath];
         [[SMDataController sharedController].managedObjectContext deleteObject:presentation];
         [[SMDataController sharedController].managedObjectContext save:nil];
     }
@@ -93,16 +95,70 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.speakerPresentations.count;
+    id< NSFetchedResultsSectionInfo> sectionInfo = self.fetchedResultsController.sections[section];
+    return [sectionInfo numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"presentation_cell"];
-    SMPresentation *presentation = [self.speakerPresentations objectAtIndex:indexPath.row];
+    SMPresentation *presentation = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = presentation.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", presentation.minutes];
     return cell;
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+  didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex
+     forChangeType:(NSFetchedResultsChangeType)type
+{
+    switch(type)
+    {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeMove:
+        case NSFetchedResultsChangeUpdate:
+            break;
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+   didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        case NSFetchedResultsChangeMove:
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.tableView endUpdates];
 }
 
 @end
