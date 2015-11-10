@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class SMSpeaker;
 
-@interface SpeakerDeailsViewController : UIViewController
+@interface SMSpeakerDeailsViewController : UIViewController
 
 @property (strong, nonatomic) SMSpeaker *speakerForDetails;
 

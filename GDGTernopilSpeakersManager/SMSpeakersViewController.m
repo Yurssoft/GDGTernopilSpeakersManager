@@ -9,7 +9,7 @@
 #import "SMSpeakersViewController.h"
 #import "SMDataController.h"
 #import "SMSpeaker.h"
-#import "SpeakerDeailsViewController.h"
+#import "SMSpeakerDeailsViewController.h"
 
 @interface SMSpeakersViewController () < NSFetchedResultsControllerDelegate >
 
@@ -65,7 +65,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SpeakerDeailsViewController *speakerDetails = (SpeakerDeailsViewController *) [self.storyboard instantiateViewControllerWithIdentifier:@"SpeakerDeailsViewController"];
+    SMSpeakerDeailsViewController *speakerDetails = (SMSpeakerDeailsViewController *) [self.storyboard instantiateViewControllerWithIdentifier:@"SMSpeakerDeailsViewController"];
     SMSpeaker *selectedSpeaker = [self.fetchedResultsController objectAtIndexPath:indexPath];
     speakerDetails.speakerForDetails = selectedSpeaker;
     [self.navigationController pushViewController:speakerDetails animated:YES];

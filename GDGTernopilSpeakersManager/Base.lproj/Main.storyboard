@@ -28,7 +28,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cVx-m4-KZM">
@@ -59,7 +59,7 @@
         <!--SpeakersDetails-->
         <scene sceneID="XOf-Qv-HJb">
             <objects>
-                <viewController restorationIdentifier="SpeakerDeailsViewController" storyboardIdentifier="SpeakerDeailsViewController" title="Speaker details" id="Bgq-P3-doj" userLabel="SpeakersDetails" customClass="SpeakerDeailsViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="SMSpeakerDeailsViewController" storyboardIdentifier="SMSpeakerDeailsViewController" title="Speaker details" id="Bgq-P3-doj" userLabel="SpeakersDetails" customClass="SMSpeakerDeailsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qg9-cK-eL0"/>
                         <viewControllerLayoutGuide type="bottom" id="WJq-OM-VPr"/>
@@ -72,7 +72,7 @@
                                 <rect key="frame" x="20" y="72" width="42" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>

@@ -6,13 +6,13 @@
 //  Copyright © 2015 Yura Boyko. All rights reserved.
 //
 
-#import "SpeakerDeailsViewController.h"
+#import "SMSpeakerDeailsViewController.h"
 
-@interface SpeakerDeailsViewController ()
+@interface SMSpeakerDeailsViewController ()
 
 @end
 
-@implementation SpeakerDeailsViewController
+@implementation SMSpeakerDeailsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
