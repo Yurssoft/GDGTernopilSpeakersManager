@@ -30,7 +30,7 @@
 - (void)setTheSpeakerForDetails:(SMSpeaker *)speakerForDetails
 {
     self.speaker = speakerForDetails;
-    NSAssert(self.speaker, @"Speaker must be!");
+    NSAssert(self.speaker, @"Speaker must exist!");
 }
 
 - (void)viewDidLoad
@@ -40,7 +40,15 @@
     self.surnameLabel.text = self.speaker.surname;
     self.experienceLabel.text = [NSString stringWithFormat:@"%@",self.speaker.experience];
     self.birthDateLabel.text = [NSString stringWithFormat:@"%@",self.speaker.birthDate];
-    self.speakerPresentations = self.speaker.presentation.allObjects;
+    [self setAndSortArrayOfPresentations];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+#warning make it nsfetched res con!
+    [[SMDataController sharedController].managedObjectContext refreshObject:self.speaker mergeChanges:YES];
+//    self.speaker = [[SMDataController sharedController].managedObjectContext objectWithID:speakerObjectId];
+    [self setAndSortArrayOfPresentations];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -51,6 +59,13 @@
         SMAddNewPresentationViewController *addPresentationVC = navcCon.viewControllers.firstObject;
         [addPresentationVC setTheSpeakerForPresentation:self.speaker];
     }
+}
+
+- (void)setAndSortArrayOfPresentations
+{
+    self.speakerPresentations = self.speaker.presentation.allObjects;
+    NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+    [self.speakerPresentations sortedArrayUsingDescriptors:@[titleSort]];
 }
 
 #pragma mark - UITableViewDelegate
@@ -86,6 +101,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"presentation_cell"];
     SMPresentation *presentation = [self.speakerPresentations objectAtIndex:indexPath.row];
     cell.textLabel.text = presentation.title;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", presentation.minutes];
     return cell;
 }
 
