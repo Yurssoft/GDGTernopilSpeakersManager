@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SMSpeaker;
+
 
 @interface SMAddNewPresentationViewController : UITableViewController
-
+- (void)setTheSpeakerForPresentation:(SMSpeaker *)speaker;
 @end
