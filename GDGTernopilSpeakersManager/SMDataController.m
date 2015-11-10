@@ -65,8 +65,8 @@
 
 - (SMPresentation *)insertNewPresentation
 {
-    return (SMSpeaker *) [NSEntityDescription insertNewObjectForEntityForName:[self presentationEntityName]
-                                                       inManagedObjectContext:self.managedObjectContext];
+    return (SMPresentation *) [NSEntityDescription insertNewObjectForEntityForName:[self presentationEntityName]
+                                                            inManagedObjectContext:self.managedObjectContext];
 }
 
 - (NSString *)presentationEntityName

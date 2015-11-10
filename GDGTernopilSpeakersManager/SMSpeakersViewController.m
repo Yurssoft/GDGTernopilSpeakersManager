@@ -80,7 +80,6 @@
     {
         SMSpeaker *speaker = [self.fetchedResultsController objectAtIndexPath:indexPath];
         [[SMDataController sharedController].managedObjectContext deleteObject:speaker];
-#warning check
         [[SMDataController sharedController].managedObjectContext save:nil];
     }
 }

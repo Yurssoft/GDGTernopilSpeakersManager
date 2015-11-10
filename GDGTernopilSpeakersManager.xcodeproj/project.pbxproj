@@ -17,6 +17,7 @@
 		8A6F2ECA1BF117AC009BFAC3 /* SMSpeakerDeailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6F2EC91BF117AC009BFAC3 /* SMSpeakerDeailsViewController.m */; };
 		8AB3CE671BF21D9400F484AA /* SMAddNewSpeakerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB3CE661BF21D9400F484AA /* SMAddNewSpeakerViewController.m */; };
 		8AB3CE6A1BF2329900F484AA /* SMAddNewPresentationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB3CE691BF2329900F484AA /* SMAddNewPresentationViewController.m */; };
+		8AB3CE6D1BF2573900F484AA /* SMPresentationDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB3CE6C1BF2573900F484AA /* SMPresentationDetailsViewController.m */; };
 		8AB53FF41BEBA641007A1208 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB53FF31BEBA641007A1208 /* main.m */; };
 		8AB53FF71BEBA641007A1208 /* SMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB53FF61BEBA641007A1208 /* SMAppDelegate.m */; };
 		8AB53FFA1BEBA641007A1208 /* SMSpeakersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB53FF91BEBA641007A1208 /* SMSpeakersViewController.m */; };
@@ -47,6 +48,8 @@
 		8AB3CE661BF21D9400F484AA /* SMAddNewSpeakerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAddNewSpeakerViewController.m; sourceTree = "<group>"; };
 		8AB3CE681BF2329900F484AA /* SMAddNewPresentationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAddNewPresentationViewController.h; sourceTree = "<group>"; };
 		8AB3CE691BF2329900F484AA /* SMAddNewPresentationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAddNewPresentationViewController.m; sourceTree = "<group>"; };
+		8AB3CE6B1BF2573900F484AA /* SMPresentationDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPresentationDetailsViewController.h; sourceTree = "<group>"; };
+		8AB3CE6C1BF2573900F484AA /* SMPresentationDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPresentationDetailsViewController.m; sourceTree = "<group>"; };
 		8AB53FEF1BEBA641007A1208 /* GDGTernopilSpeakersManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GDGTernopilSpeakersManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB53FF31BEBA641007A1208 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8AB53FF51BEBA641007A1208 /* SMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMAppDelegate.h; sourceTree = "<group>"; };
@@ -101,6 +104,8 @@
 				8AB3CE661BF21D9400F484AA /* SMAddNewSpeakerViewController.m */,
 				8AB3CE681BF2329900F484AA /* SMAddNewPresentationViewController.h */,
 				8AB3CE691BF2329900F484AA /* SMAddNewPresentationViewController.m */,
+				8AB3CE6B1BF2573900F484AA /* SMPresentationDetailsViewController.h */,
+				8AB3CE6C1BF2573900F484AA /* SMPresentationDetailsViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -238,6 +243,7 @@
 				8AB53FF41BEBA641007A1208 /* main.m in Sources */,
 				8A6F2ECA1BF117AC009BFAC3 /* SMSpeakerDeailsViewController.m in Sources */,
 				8A2EA67B1BECCF680091800E /* SMDataController.m in Sources */,
+				8AB3CE6D1BF2573900F484AA /* SMPresentationDetailsViewController.m in Sources */,
 				8AE596361BEBAC040093AF75 /* SpeakersManagerDataModel.xcdatamodeld in Sources */,
 				8A2EA69C1BECE3930091800E /* SMSpeaker+CoreDataProperties.m in Sources */,
 			);

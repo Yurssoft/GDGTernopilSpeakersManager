@@ -11,5 +11,7 @@
 
 
 @interface SMAddNewPresentationViewController : UITableViewController
+
 - (void)setTheSpeakerForPresentation:(SMSpeaker *)speaker;
+
 @end
