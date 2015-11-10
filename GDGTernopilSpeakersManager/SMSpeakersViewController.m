@@ -74,6 +74,16 @@
 
 #pragma mark - UITableViewDataSource
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        SMSpeaker *speaker = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [[SMDataController sharedController].managedObjectContext deleteObject:speaker];
+        [[SMDataController sharedController].managedObjectContext save:nil];
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.fetchedResultsController.sections.count;
