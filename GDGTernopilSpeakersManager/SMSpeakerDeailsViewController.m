@@ -8,6 +8,7 @@
 
 #import "SMSpeakerDeailsViewController.h"
 #import "SMSpeaker.h"
+#import "SMAddNewPresentationViewController.h"
 
 @interface SMSpeakerDeailsViewController ()
 
@@ -33,6 +34,16 @@
     self.surnameLabel.text = self.speaker.surname;
     self.experienceLabel.text = [NSString stringWithFormat:@"%@",self.speaker.experience];
     self.birthDateLabel.text = [NSString stringWithFormat:@"%@",self.speaker.birthDate];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"add_new_presentation"])
+    {
+        UINavigationController *navcCon = (UINavigationController *) segue.destinationViewController;
+        SMAddNewPresentationViewController *addPresentationVC = navcCon.viewControllers.firstObject;
+        [addPresentationVC setTheSpeakerForPresentation:self.speaker];
+    }
 }
 
 @end

@@ -48,11 +48,11 @@
 
 - (IBAction)saveButtonPressed:(UIBarButtonItem *)sender
 {
+    NSAssert(self.speakerForPresentation, @"Speaker must be created!");
     SMPresentation *presentation = [[SMDataController sharedController] insertNewPresentation];
     presentation.title = [self textFromCellAtIndex:0];
     presentation.minutes = @([self textFromCellAtIndex:1].doubleValue);
     presentation.comments = [self textFromCellAtIndex:2];
-    NSAssert(self.speakerForPresentation, @"Speaker must be created!");
     presentation.speaker = self.speakerForPresentation;
     [[SMDataController sharedController].managedObjectContext save:nil];
     

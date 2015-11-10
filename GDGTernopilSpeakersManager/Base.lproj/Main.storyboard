@@ -341,7 +341,7 @@
                     <navigationItem key="navigationItem" title="Speaker details" id="11T-YC-rBS">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="XMU-qR-0oC">
                             <connections>
-                                <segue destination="bFv-47-ikc" kind="presentation" modalTransitionStyle="flipHorizontal" id="Tca-BY-Bxs"/>
+                                <segue destination="bFv-47-ikc" kind="presentation" identifier="add_new_presentation" modalTransitionStyle="flipHorizontal" id="Tca-BY-Bxs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
