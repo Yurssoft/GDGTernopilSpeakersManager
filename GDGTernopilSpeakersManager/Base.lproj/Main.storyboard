@@ -43,9 +43,6 @@
                                     <animations/>
                                 </tableViewCellContentView>
                                 <animations/>
-                                <connections>
-                                    <segue destination="Bgq-P3-doj" kind="show" action="showDetailViewController:sender:" id="jqk-tS-kdC"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -62,7 +59,7 @@
         <!--SpeakersDetails-->
         <scene sceneID="XOf-Qv-HJb">
             <objects>
-                <viewController title="Speaker details" id="Bgq-P3-doj" userLabel="SpeakersDetails" sceneMemberID="viewController">
+                <viewController restorationIdentifier="SpeakerDeailsViewController" storyboardIdentifier="SpeakerDeailsViewController" title="Speaker details" id="Bgq-P3-doj" userLabel="SpeakersDetails" customClass="SpeakerDeailsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qg9-cK-eL0"/>
                         <viewControllerLayoutGuide type="bottom" id="WJq-OM-VPr"/>
@@ -86,10 +83,11 @@
                             <constraint firstItem="aBx-3F-0Rz" firstAttribute="top" secondItem="Qg9-cK-eL0" secondAttribute="bottom" constant="8" symbolic="YES" id="m8S-AP-yY8"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Speaker details" id="11T-YC-rBS"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="50g-Xf-0No" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1920" y="464"/>
+            <point key="canvasLocation" x="2596" y="464"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9nN-KU-uYT">
@@ -109,6 +107,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="24t-0a-UFF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="499" y="464"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Rob-gK-o3O">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kcR-7q-cb7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="myZ-6W-m9T">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Bgq-P3-doj" kind="relationship" relationship="rootViewController" id="tGv-Wi-cp1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VZp-Wr-nBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1892" y="464"/>
         </scene>
     </scenes>
 </document>

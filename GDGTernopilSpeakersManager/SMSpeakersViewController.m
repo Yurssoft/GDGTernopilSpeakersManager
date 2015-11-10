@@ -42,20 +42,6 @@
     }
 }
 
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"Speakers_details"])
-    {
-        SpeakerDeailsViewController *speakerDetails = (SpeakerDeailsViewController *) segue.destinationViewController;
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        SMSpeaker *selectedSpeaker = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        speakerDetails.speakerForDetails = selectedSpeaker;
-        return;
-    }
-}
-
 #pragma mark - Accessors
 
 - (NSFetchedResultsController *)fetchedResultsController
@@ -73,6 +59,17 @@
                                                                                cacheName:nil];
     _fetchedResultsController.delegate = self;
     return _fetchedResultsController;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SpeakerDeailsViewController *speakerDetails = (SpeakerDeailsViewController *) [self.storyboard instantiateViewControllerWithIdentifier:@"SpeakerDeailsViewController"];
+    SMSpeaker *selectedSpeaker = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    speakerDetails.speakerForDetails = selectedSpeaker;
+    [self.navigationController pushViewController:speakerDetails animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
