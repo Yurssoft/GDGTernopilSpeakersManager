@@ -67,7 +67,7 @@
 {
     SMSpeakerDeailsViewController *speakerDetails = (SMSpeakerDeailsViewController *) [self.storyboard instantiateViewControllerWithIdentifier:@"SMSpeakerDeailsViewController"];
     SMSpeaker *selectedSpeaker = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    speakerDetails.speakerForDetails = selectedSpeaker;
+    [speakerDetails setTheSpeakerForDetails:selectedSpeaker];
     [self.navigationController pushViewController:speakerDetails animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

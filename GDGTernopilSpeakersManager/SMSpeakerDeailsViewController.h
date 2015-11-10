@@ -11,6 +11,6 @@
 
 @interface SMSpeakerDeailsViewController : UIViewController
 
-@property (strong, nonatomic) SMSpeaker *speakerForDetails;
+- (void)setTheSpeakerForDetails:(SMSpeaker *)speakerForDetails;
 
 @end

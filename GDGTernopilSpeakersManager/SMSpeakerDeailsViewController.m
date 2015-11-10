@@ -7,21 +7,32 @@
 //
 
 #import "SMSpeakerDeailsViewController.h"
+#import "SMSpeaker.h"
 
 @interface SMSpeakerDeailsViewController ()
+
+@property (strong, nonatomic) SMSpeaker *speaker;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *surnameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *experienceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *birthDateLabel;
 
 @end
 
 @implementation SMSpeakerDeailsViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+- (void)setTheSpeakerForDetails:(SMSpeaker *)speakerForDetails
+{
+    self.speaker = speakerForDetails;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.nameLabel.text = self.speaker.name;
+    self.surnameLabel.text = self.speaker.surname;
+    self.experienceLabel.text = [NSString stringWithFormat:@"%@",self.speaker.experience];
+    self.birthDateLabel.text = [NSString stringWithFormat:@"%@",self.speaker.birthDate];
 }
 
 @end
