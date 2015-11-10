@@ -20,11 +20,11 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="surname" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="conferences" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SMConference" inverseName="speakers" inverseEntity="SMConference" syncable="YES"/>
-        <relationship name="presentation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SMPresentation" inverseName="speaker" inverseEntity="SMPresentation" syncable="YES"/>
+        <relationship name="presentation" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SMPresentation" inverseName="speaker" inverseEntity="SMPresentation" syncable="YES"/>
     </entity>
     <elements>
         <element name="SMConference" positionX="171" positionY="50" width="128" height="118"/>
         <element name="SMPresentation" positionX="-2" positionY="116" width="128" height="118"/>
-        <element name="SMSpeaker" positionX="342" positionY="101" width="128" height="133"/>
+        <element name="SMSpeaker" positionX="342" positionY="101" width="128" height="135"/>
     </elements>
 </model>

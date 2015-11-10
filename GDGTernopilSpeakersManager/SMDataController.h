@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-@class  SMSpeaker;
+@class SMSpeaker;
+@class SMPresentation;
 @import CoreData;
 
 @interface SMDataController : NSObject
@@ -18,5 +19,8 @@
 
 - (SMSpeaker *)insertNewSpeaker;
 - (NSString *)speakerEntityName;
+
+- (SMPresentation *)insertNewPresentation;
+- (NSString *)presentationEntityName;
 
 @end

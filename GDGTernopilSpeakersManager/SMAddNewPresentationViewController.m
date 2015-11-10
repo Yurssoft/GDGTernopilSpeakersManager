@@ -1,20 +1,20 @@
 //
-//  SMAddNewSpeakerViewController.m
+//  SMAddNewPresentationViewController.m
 //  GDGTernopilSpeakersManager
 //
 //  Created by Yura Boyko on 11/10/15.
 //  Copyright © 2015 Yura Boyko. All rights reserved.
 //
 
-#import "SMAddNewSpeakerViewController.h"
+#import "SMAddNewPresentationViewController.h"
 #import "SMDataController.h"
-#import "SMSpeaker.h"
+#import "SMPresentation.h"
 
-@interface SMAddNewSpeakerViewController ()
+@interface SMAddNewPresentationViewController ()
 
 @end
 
-@implementation SMAddNewSpeakerViewController
+@implementation SMAddNewPresentationViewController
 
 - (void)viewDidLoad
 {
@@ -47,12 +47,11 @@
 
 - (IBAction)saveButtonPressed:(UIBarButtonItem *)sender
 {
-    SMSpeaker *speaker = [[SMDataController sharedController] insertNewSpeaker];
-    speaker.name = [self textFromCellAtIndex:0];
-    speaker.surname = [self textFromCellAtIndex:1];
-    speaker.experience = @([self textFromCellAtIndex:2].doubleValue);
-    speaker.birthDate = @([self textFromCellAtIndex:3].doubleValue);
-#warning conference?
+    SMPresentation *presentation = [[SMDataController sharedController] insertNewPresentation];
+    presentation.title = [self textFromCellAtIndex:0];
+    presentation.minutes = @([self textFromCellAtIndex:1].doubleValue);
+    presentation.comments = [self textFromCellAtIndex:2];
+#warning speaker ?
     [[SMDataController sharedController].managedObjectContext save:nil];
     
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];

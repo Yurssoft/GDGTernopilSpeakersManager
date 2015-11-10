@@ -63,6 +63,17 @@
     return @"SMSpeaker";
 }
 
+- (SMPresentation *)insertNewPresentation
+{
+    return (SMSpeaker *) [NSEntityDescription insertNewObjectForEntityForName:[self presentationEntityName]
+                                                       inManagedObjectContext:self.managedObjectContext];
+}
+
+- (NSString *)presentationEntityName
+{
+    return @"SMPresentation";
+}
+
 #pragma mark - Private
 
 
