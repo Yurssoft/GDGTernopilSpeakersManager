@@ -41,6 +41,24 @@
     self.birthDateLabel.text = [NSString stringWithFormat:@"%@",self.speaker.birthDate];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSError *error;
+    if (![self.fetchedResultsController performFetch:&error]) {
+        UIAlertController *fetchError = [UIAlertController alertControllerWithTitle:@"Failed to initialize FetchedResultsController"
+                                                                            message:[NSString stringWithFormat:@"%@\n%@", [error localizedDescription], [error userInfo]]
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
+        [fetchError addAction:okAction];
+        [self.navigationController presentViewController:fetchError animated:YES completion:nil];
+        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+        abort();
+    }
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"add_new_presentation"])
@@ -58,9 +76,8 @@
         return _fetchedResultsController;
     }
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[[SMDataController sharedController] presentationEntityName]];
-    NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:NO selector:@selector(localizedCaseInsensitiveCompare:)];
+    NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
     request.sortDescriptors = @[titleSort];
-#warning check this
     NSManagedObjectContext *moc = [SMDataController sharedController].managedObjectContext;
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                     managedObjectContext:moc
@@ -104,6 +121,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"presentation_cell"];
     SMPresentation *presentation = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = presentation.title;
+    cell.detailTextLabel.text = presentation.comments;
     return cell;
 }
 
