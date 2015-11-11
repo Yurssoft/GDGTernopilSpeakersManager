@@ -2,7 +2,7 @@
 //  SMSpeaker+CoreDataProperties.h
 //  GDGTernopilSpeakersManager
 //
-//  Created by Yura Boyko on 11/6/15.
+//  Created by Yura Boyko on 11/11/15.
 //  Copyright © 2015 Yura Boyko. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSNumber *experience;
 @property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSString *surname;
+@property (nullable, nonatomic, retain) NSString *speakerId;
 @property (nullable, nonatomic, retain) NSSet<SMConference *> *conferences;
 @property (nullable, nonatomic, retain) NSSet<SMPresentation *> *presentation;
 

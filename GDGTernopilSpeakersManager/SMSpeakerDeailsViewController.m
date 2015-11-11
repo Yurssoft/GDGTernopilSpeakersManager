@@ -78,6 +78,8 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[[SMDataController sharedController] presentationEntityName]];
     NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
     request.sortDescriptors = @[titleSort];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.speaker.speakerId == %@", _speaker.speakerId];
+    request.predicate = predicate;
     NSManagedObjectContext *moc = [SMDataController sharedController].managedObjectContext;
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                     managedObjectContext:moc

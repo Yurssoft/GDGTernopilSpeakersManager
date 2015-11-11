@@ -7,6 +7,8 @@
 //
 
 #import "SMDataController.h"
+#import "SMSpeaker.h"
+#import "SMPresentation.h"
 
 @interface SMDataController ()
 
@@ -54,8 +56,10 @@
 
 - (SMSpeaker *)insertNewSpeaker
 {
-    return (SMSpeaker *) [NSEntityDescription insertNewObjectForEntityForName:[self speakerEntityName]
-                                                       inManagedObjectContext:self.managedObjectContext];
+    SMSpeaker *speaker = (SMSpeaker *) [NSEntityDescription insertNewObjectForEntityForName:[self speakerEntityName]
+                                                                     inManagedObjectContext:self.managedObjectContext];
+    speaker.speakerId = [self uuid];
+    return speaker;
 }
 
 - (NSString *)speakerEntityName
@@ -65,13 +69,23 @@
 
 - (SMPresentation *)insertNewPresentation
 {
-    return (SMPresentation *) [NSEntityDescription insertNewObjectForEntityForName:[self presentationEntityName]
-                                                            inManagedObjectContext:self.managedObjectContext];
+    SMPresentation *presentation = (SMPresentation *) [NSEntityDescription insertNewObjectForEntityForName:[self presentationEntityName]
+                                                                                    inManagedObjectContext:self.managedObjectContext];
+    presentation.presentationId = [self uuid];
+    return presentation;
 }
 
 - (NSString *)presentationEntityName
 {
     return @"SMPresentation";
+}
+
+- (NSString *)uuid
+{
+    CFUUIDRef uuidRef = CFUUIDCreate(NULL);
+    CFStringRef uuidStringRef = CFUUIDCreateString(NULL, uuidRef);
+    CFRelease(uuidRef);
+    return (__bridge_transfer NSString *)uuidStringRef;
 }
 
 #pragma mark - Private

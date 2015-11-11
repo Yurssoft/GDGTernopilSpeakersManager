@@ -16,6 +16,7 @@
 @property (strong, nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 
 + (instancetype)sharedController;
+- (NSString *)uuid;
 
 - (SMSpeaker *)insertNewSpeaker;
 - (NSString *)speakerEntityName;
