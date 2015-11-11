@@ -158,4 +158,16 @@
     [self.tableView endUpdates];
 }
 
+#pragma mark - Undo manager
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+- (NSUndoManager*)undoManager
+{
+    return  [SMDataController sharedController].managedObjectContext.undoManager;
+}
+
 @end
