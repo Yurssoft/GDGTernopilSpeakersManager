@@ -24,6 +24,9 @@
 		8AB53FFD1BEBA641007A1208 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AB53FFB1BEBA641007A1208 /* Main.storyboard */; };
 		8AB53FFF1BEBA641007A1208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AB53FFE1BEBA641007A1208 /* Assets.xcassets */; };
 		8AB540021BEBA641007A1208 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AB540001BEBA641007A1208 /* LaunchScreen.storyboard */; };
+		8AD7A3D01BF7875D001F58D9 /* SMConfernceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD7A3CF1BF7875D001F58D9 /* SMConfernceViewController.m */; };
+		8AD7A3D31BF78E82001F58D9 /* SMConferenceDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD7A3D21BF78E82001F58D9 /* SMConferenceDetailsViewController.m */; };
+		8AD7A3D61BF7922E001F58D9 /* SMAddNewConference.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD7A3D51BF7922E001F58D9 /* SMAddNewConference.m */; };
 		8AE596361BEBAC040093AF75 /* SpeakersManagerDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8AE596341BEBAC030093AF75 /* SpeakersManagerDataModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +63,12 @@
 		8AB53FFE1BEBA641007A1208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8AB540011BEBA641007A1208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8AB540031BEBA641007A1208 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8AD7A3CE1BF7875D001F58D9 /* SMConfernceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMConfernceViewController.h; sourceTree = "<group>"; };
+		8AD7A3CF1BF7875D001F58D9 /* SMConfernceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMConfernceViewController.m; sourceTree = "<group>"; };
+		8AD7A3D11BF78E82001F58D9 /* SMConferenceDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMConferenceDetailsViewController.h; sourceTree = "<group>"; };
+		8AD7A3D21BF78E82001F58D9 /* SMConferenceDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMConferenceDetailsViewController.m; sourceTree = "<group>"; };
+		8AD7A3D41BF7922E001F58D9 /* SMAddNewConference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAddNewConference.h; sourceTree = "<group>"; };
+		8AD7A3D51BF7922E001F58D9 /* SMAddNewConference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAddNewConference.m; sourceTree = "<group>"; };
 		8AE596351BEBAC040093AF75 /* SpeakersManagerDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SpeakersManagerDataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +115,12 @@
 				8AB3CE691BF2329900F484AA /* SMAddNewPresentationViewController.m */,
 				8AB3CE6B1BF2573900F484AA /* SMPresentationDetailsViewController.h */,
 				8AB3CE6C1BF2573900F484AA /* SMPresentationDetailsViewController.m */,
+				8AD7A3CE1BF7875D001F58D9 /* SMConfernceViewController.h */,
+				8AD7A3CF1BF7875D001F58D9 /* SMConfernceViewController.m */,
+				8AD7A3D11BF78E82001F58D9 /* SMConferenceDetailsViewController.h */,
+				8AD7A3D21BF78E82001F58D9 /* SMConferenceDetailsViewController.m */,
+				8AD7A3D41BF7922E001F58D9 /* SMAddNewConference.h */,
+				8AD7A3D51BF7922E001F58D9 /* SMAddNewConference.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -237,10 +252,13 @@
 				8A2EA69A1BECE3930091800E /* SMPresentation+CoreDataProperties.m in Sources */,
 				8A2EA69F1BECE3930091800E /* SMConference.m in Sources */,
 				8A2EA69D1BECE3930091800E /* SMSpeaker.m in Sources */,
+				8AD7A3D61BF7922E001F58D9 /* SMAddNewConference.m in Sources */,
 				8AB53FF71BEBA641007A1208 /* SMAppDelegate.m in Sources */,
 				8AB3CE6A1BF2329900F484AA /* SMAddNewPresentationViewController.m in Sources */,
+				8AD7A3D01BF7875D001F58D9 /* SMConfernceViewController.m in Sources */,
 				8A2EA69E1BECE3930091800E /* SMConference+CoreDataProperties.m in Sources */,
 				8AB53FF41BEBA641007A1208 /* main.m in Sources */,
+				8AD7A3D31BF78E82001F58D9 /* SMConferenceDetailsViewController.m in Sources */,
 				8A6F2ECA1BF117AC009BFAC3 /* SMSpeakerDeailsViewController.m in Sources */,
 				8A2EA67B1BECCF680091800E /* SMDataController.m in Sources */,
 				8AB3CE6D1BF2573900F484AA /* SMPresentationDetailsViewController.m in Sources */,

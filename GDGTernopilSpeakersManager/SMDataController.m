@@ -9,6 +9,7 @@
 #import "SMDataController.h"
 #import "SMSpeaker.h"
 #import "SMPresentation.h"
+#import "SMConference.h"
 
 @interface SMDataController ()
 
@@ -79,6 +80,19 @@
 - (NSString *)presentationEntityName
 {
     return @"SMPresentation";
+}
+
+- (SMConference *)insertNewConference
+{
+    SMConference *conference = (SMConference *) [NSEntityDescription insertNewObjectForEntityForName:[self conferenceEntityName]
+                                                                              inManagedObjectContext:self.managedObjectContext];
+    conference.conferenceId = [self uuid];
+    return conference;
+}
+
+- (NSString *)conferenceEntityName
+{
+    return @"SMConference";
 }
 
 - (NSString *)uuid
