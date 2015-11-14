@@ -11,7 +11,7 @@
 #import "SMSpeaker.h"
 
 @interface SMAddNewSpeakerViewController ()
-
+@property (strong, nonatomic) SMConference *conference;
 @end
 
 @implementation SMAddNewSpeakerViewController
@@ -52,7 +52,7 @@
     speaker.surname = [self textFromCellAtIndex:1];
     speaker.experience = @([self textFromCellAtIndex:2].doubleValue);
     speaker.birthDate = @([self textFromCellAtIndex:3].doubleValue);
-#warning conference?
+    [speaker.conferences setByAddingObject:self.conference];
     [[SMDataController sharedController].managedObjectContext save:nil];
     
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
@@ -63,6 +63,11 @@
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
     UITextField *textField = cell.contentView.subviews.firstObject;
     return textField.text;
+}
+
+- (void)setTheConference:(SMConference *)conferenceForSpeaker
+{
+    self.conference = conferenceForSpeaker;
 }
 
 @end

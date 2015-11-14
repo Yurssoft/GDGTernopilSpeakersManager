@@ -10,10 +10,13 @@
 #import "SMDataController.h"
 #import "SMSpeaker.h"
 #import "SMSpeakerDeailsViewController.h"
+#import "SMAddNewSpeakerViewController.h"
+@import Foundation;
 
 @interface SMSpeakersViewController () < NSFetchedResultsControllerDelegate >
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) SMConference *conference;
 
 @end
 
@@ -42,6 +45,22 @@
     }
 }
 
+- (void)setTheConferenceForSpeakers:(SMConference *)conferenceForSpeakers
+{
+    self.conference = conferenceForSpeakers;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSString *addNewSpeaker = @"add_new_speaker";
+    if ([segue.identifier isEqualToString:addNewSpeaker])
+    {
+        UINavigationController *navCon = segue.destinationViewController;
+        SMAddNewSpeakerViewController *addSpeaker = navCon.viewControllers.firstObject;
+        [addSpeaker setTheConference:self.conference];
+    }
+}
+
 #pragma mark - Accessors
 
 - (NSFetchedResultsController *)fetchedResultsController
@@ -52,6 +71,7 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[[SMDataController sharedController] speakerEntityName]];
     NSSortDescriptor *lastNameSort = [NSSortDescriptor sortDescriptorWithKey:@"surname" ascending:NO selector:@selector(localizedCaseInsensitiveCompare:)];
     request.sortDescriptors = @[lastNameSort];
+//    request.predicate = [NSPredicate predicateWithFormat:@"conferences CONTAINS[cd]  %@",self.conference];
     NSManagedObjectContext *moc = [SMDataController sharedController].managedObjectContext;
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                     managedObjectContext:moc

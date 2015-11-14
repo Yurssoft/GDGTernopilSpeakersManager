@@ -8,6 +8,7 @@
 
 #import "SMConferenceDetailsViewController.h"
 #import "SMConference.h"
+#import "SMSpeakersViewController.h"
 
 @interface SMConferenceDetailsViewController ()
 
@@ -31,6 +32,14 @@
 - (void)setTheConferenceForDetails:(SMConference *)conferenceForDetails
 {
     self.conference = conferenceForDetails;
+}
+
+- (IBAction)speakersButtonPressed:(UIButton *)sender
+{
+    NSString *speakers = @"SMSpeakersViewController";
+    SMSpeakersViewController *speakerVC = (SMSpeakersViewController *) [self.storyboard instantiateViewControllerWithIdentifier:speakers];
+    [speakerVC setTheConferenceForSpeakers:self.conference];
+    [self.navigationController pushViewController:speakerVC animated:YES];
 }
 
 @end

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SMConference;
 
 @interface SMAddNewSpeakerViewController : UITableViewController
+
+- (void)setTheConference:(SMConference *)conferenceForSpeaker;
 
 @end

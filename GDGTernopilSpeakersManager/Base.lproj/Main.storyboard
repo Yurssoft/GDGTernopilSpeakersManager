@@ -9,7 +9,7 @@
         <!--Speakers-->
         <scene sceneID="n3K-Or-ncM">
             <objects>
-                <tableViewController id="M35-Vw-BN6" customClass="SMSpeakersViewController" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="SMSpeakersViewController" storyboardIdentifier="SMSpeakersViewController" id="M35-Vw-BN6" customClass="SMSpeakersViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="3yK-Rj-rEw">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,7 +53,7 @@
                     <navigationItem key="navigationItem" title="Speakers" id="bfQ-o6-Tj4">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="2vw-Lt-g7a">
                             <connections>
-                                <segue destination="yci-HF-Eqg" kind="presentation" modalTransitionStyle="flipHorizontal" id="M5T-eB-yNi"/>
+                                <segue destination="yci-HF-Eqg" kind="presentation" identifier="add_new_speaker" modalTransitionStyle="flipHorizontal" id="M5T-eB-yNi"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -779,6 +779,13 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sm3-sN-aoy">
+                                <rect key="frame" x="79" y="130" width="509" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Sk-3z-aFO">
                                 <rect key="frame" x="73" y="159" width="507" height="21"/>
                                 <animations/>
@@ -813,18 +820,28 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sm3-sN-aoy">
-                                <rect key="frame" x="79" y="130" width="509" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NkQ-Tl-9UL">
+                                <rect key="frame" x="173" y="264" width="254" height="72"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="254" id="Jal-I2-Ggq"/>
+                                    <constraint firstAttribute="height" constant="72" id="cur-yJ-g6y"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Speakers">
+                                    <color key="titleShadowColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="speakersButtonPressed:" destination="8B7-rI-71X" eventType="touchUpInside" id="OT8-3e-ftK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="oOM-U2-XAD" firstAttribute="leading" secondItem="X7h-cB-D5e" secondAttribute="leadingMargin" id="86F-Uv-0DN"/>
+                            <constraint firstItem="NkQ-Tl-9UL" firstAttribute="centerY" secondItem="X7h-cB-D5e" secondAttribute="centerY" id="88o-pu-c6t"/>
                             <constraint firstItem="cps-YW-lSw" firstAttribute="baseline" secondItem="D6R-sU-nex" secondAttribute="baseline" id="DNs-85-292"/>
                             <constraint firstItem="3Sk-3z-aFO" firstAttribute="leading" secondItem="oOM-U2-XAD" secondAttribute="trailing" constant="8" symbolic="YES" id="JV9-WG-Ez3"/>
                             <constraint firstItem="D6R-sU-nex" firstAttribute="leading" secondItem="sm3-sN-aoy" secondAttribute="leading" constant="-8" id="JrK-8H-OZj"/>
@@ -835,6 +852,7 @@
                             <constraint firstItem="sm3-sN-aoy" firstAttribute="baseline" secondItem="UOI-oa-Rn2" secondAttribute="baseline" id="SbG-Q7-LQU"/>
                             <constraint firstItem="sm3-sN-aoy" firstAttribute="trailing" secondItem="3Sk-3z-aFO" secondAttribute="trailing" constant="8" id="YAO-iZ-ynn"/>
                             <constraint firstItem="D6R-sU-nex" firstAttribute="leading" secondItem="cps-YW-lSw" secondAttribute="trailing" constant="8" symbolic="YES" id="ddt-Fn-ZkY"/>
+                            <constraint firstItem="NkQ-Tl-9UL" firstAttribute="centerX" secondItem="X7h-cB-D5e" secondAttribute="centerX" id="iYI-0Q-avo"/>
                             <constraint firstItem="UOI-oa-Rn2" firstAttribute="leading" secondItem="cps-YW-lSw" secondAttribute="leading" id="jGv-c4-3bj"/>
                             <constraint firstItem="UOI-oa-Rn2" firstAttribute="top" secondItem="cps-YW-lSw" secondAttribute="bottom" constant="8" symbolic="YES" id="jZ4-Yl-AbH"/>
                             <constraint firstItem="sm3-sN-aoy" firstAttribute="trailing" secondItem="D6R-sU-nex" secondAttribute="trailing" constant="8" id="lHe-gU-2da"/>
