@@ -9,6 +9,7 @@
 #import "SMAddNewSpeakerViewController.h"
 #import "SMDataController.h"
 #import "SMSpeaker.h"
+#import "SMConference.h"
 
 @interface SMAddNewSpeakerViewController ()
 @property (strong, nonatomic) SMConference *conference;
@@ -52,7 +53,8 @@
     speaker.surname = [self textFromCellAtIndex:1];
     speaker.experience = @([self textFromCellAtIndex:2].doubleValue);
     speaker.birthDate = @([self textFromCellAtIndex:3].doubleValue);
-    [speaker.conferences setByAddingObject:self.conference];
+    NSMutableSet *conferenceSpeakers = [self.conference mutableSetValueForKey:@"speakers"];
+    [conferenceSpeakers addObject:speaker];
     [[SMDataController sharedController].managedObjectContext save:nil];
     
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
