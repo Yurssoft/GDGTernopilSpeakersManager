@@ -102,25 +102,41 @@
 			name = NSManagedObjectSubclasses;
 			sourceTree = "<group>";
 		};
-		8A6F2EC61BF11504009BFAC3 /* Controller */ = {
+		8A6B1D1D1BF8B5A5005B7621 /* Add */ = {
 			isa = PBXGroup;
 			children = (
-				8AB53FF81BEBA641007A1208 /* SMSpeakersViewController.h */,
-				8AB53FF91BEBA641007A1208 /* SMSpeakersViewController.m */,
-				8A6F2EC81BF117AC009BFAC3 /* SMSpeakerDeailsViewController.h */,
-				8A6F2EC91BF117AC009BFAC3 /* SMSpeakerDeailsViewController.m */,
 				8AB3CE651BF21D9400F484AA /* SMAddNewSpeakerViewController.h */,
 				8AB3CE661BF21D9400F484AA /* SMAddNewSpeakerViewController.m */,
 				8AB3CE681BF2329900F484AA /* SMAddNewPresentationViewController.h */,
 				8AB3CE691BF2329900F484AA /* SMAddNewPresentationViewController.m */,
-				8AB3CE6B1BF2573900F484AA /* SMPresentationDetailsViewController.h */,
-				8AB3CE6C1BF2573900F484AA /* SMPresentationDetailsViewController.m */,
-				8AD7A3CE1BF7875D001F58D9 /* SMConfernceViewController.h */,
-				8AD7A3CF1BF7875D001F58D9 /* SMConfernceViewController.m */,
-				8AD7A3D11BF78E82001F58D9 /* SMConferenceDetailsViewController.h */,
-				8AD7A3D21BF78E82001F58D9 /* SMConferenceDetailsViewController.m */,
 				8AD7A3D41BF7922E001F58D9 /* SMAddNewConference.h */,
 				8AD7A3D51BF7922E001F58D9 /* SMAddNewConference.m */,
+			);
+			name = Add;
+			sourceTree = "<group>";
+		};
+		8A6B1D1E1BF8B5B8005B7621 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				8A6F2EC81BF117AC009BFAC3 /* SMSpeakerDeailsViewController.h */,
+				8A6F2EC91BF117AC009BFAC3 /* SMSpeakerDeailsViewController.m */,
+				8AB3CE6B1BF2573900F484AA /* SMPresentationDetailsViewController.h */,
+				8AB3CE6C1BF2573900F484AA /* SMPresentationDetailsViewController.m */,
+				8AD7A3D11BF78E82001F58D9 /* SMConferenceDetailsViewController.h */,
+				8AD7A3D21BF78E82001F58D9 /* SMConferenceDetailsViewController.m */,
+			);
+			name = Details;
+			sourceTree = "<group>";
+		};
+		8A6F2EC61BF11504009BFAC3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8AD7A3CE1BF7875D001F58D9 /* SMConfernceViewController.h */,
+				8AD7A3CF1BF7875D001F58D9 /* SMConfernceViewController.m */,
+				8AB53FF81BEBA641007A1208 /* SMSpeakersViewController.h */,
+				8AB53FF91BEBA641007A1208 /* SMSpeakersViewController.m */,
+				8A6B1D1E1BF8B5B8005B7621 /* Details */,
+				8A6B1D1D1BF8B5A5005B7621 /* Add */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

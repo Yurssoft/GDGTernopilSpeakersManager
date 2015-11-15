@@ -10,6 +10,8 @@
 #import "SMConference.h"
 #import "SMDataController.h"
 #import "SMConferenceDetailsViewController.h"
+#import "SMSpeaker.h"
+#import "SMPresentation.h"
 
 @interface SMConfernceViewController () < NSFetchedResultsControllerDelegate >
 
@@ -22,6 +24,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -40,6 +43,50 @@
         NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
         abort();
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [[SMDataController sharedController].managedObjectContext performBlock:^{
+            //populating database
+            for (NSInteger i = 0; i < 10; i++)
+            {
+                SMConference *conference = [[SMDataController sharedController] insertNewConference];
+                conference.title         = [NSString stringWithFormat:@"title %ld", (long)i];
+                conference.place         = [NSString stringWithFormat:@"place %ld", (long)i];
+                conference.date          = [NSDate date];
+                
+                for (NSInteger j = 0; j < 10; j++)
+                {
+                    SMSpeaker *speaker = [[SMDataController sharedController] insertNewSpeaker];
+                    speaker.name       = [NSString stringWithFormat:@"name %ld", (long)j];
+                    speaker.surname    = [NSString stringWithFormat:@"surname %ld", (long)j];
+                    speaker.experience = @(j);
+                    speaker.birthDate  = @(j);
+                    NSMutableSet *conferenceSpeakers = [conference mutableSetValueForKey:@"speakers"];
+                    [conferenceSpeakers addObject:speaker];
+                    
+                    for (NSInteger k = 0; k < 50; k++)
+                    {
+                        SMPresentation *presentation = [[SMDataController sharedController] insertNewPresentation];
+                        presentation.title = [NSString stringWithFormat:@"title %ld", (long)k];
+                        presentation.comments = [NSString stringWithFormat:@"comments %ld", (long)k];
+                        presentation.minutes = @(k);
+                        presentation.speaker = speaker;
+                    }
+                }
+            }
+        }];
+        [[SMDataController sharedController].managedObjectContext save:nil];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.fetchedResultsController performFetch:nil];
+            [self.tableView reloadData];
+            self.navigationItem.title = [NSString stringWithFormat:@"%lu",self.fetchedResultsController.fetchedObjects.count];
+        });
+    });
 }
 
 #pragma mark - Accessors
