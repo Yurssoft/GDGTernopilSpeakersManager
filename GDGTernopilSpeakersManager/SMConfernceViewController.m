@@ -7,11 +7,11 @@
 //
 @import CoreData;
 #import "SMConfernceViewController.h"
-#import "SMConference.h"
 #import "SMDataController.h"
 #import "SMConferenceDetailsViewController.h"
 #import "SMSpeaker.h"
 #import "SMPresentation.h"
+#import "SMConference.h"
 
 @interface SMConfernceViewController () < NSFetchedResultsControllerDelegate >
 
@@ -24,69 +24,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    NSError *error;
-    if (![self.fetchedResultsController performFetch:&error]) {
-        UIAlertController *fetchError = [UIAlertController alertControllerWithTitle:@"Failed to initialize FetchedResultsController"
-                                                                            message:[NSString stringWithFormat:@"%@\n%@", [error localizedDescription], [error userInfo]]
-                                                                     preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:nil];
-        [fetchError addAction:okAction];
-        [self.navigationController presentViewController:fetchError animated:YES completion:nil];
-        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
-        abort();
-    }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [[SMDataController sharedController].managedObjectContext performBlock:^{
-            //populating database
-            for (NSInteger i = 0; i < 10; i++)
-            {
-                SMConference *conference = [[SMDataController sharedController] insertNewConference];
-                conference.title         = [NSString stringWithFormat:@"title %ld", (long)i];
-                conference.place         = [NSString stringWithFormat:@"place %ld", (long)i];
-                conference.date          = [NSDate date];
-                
-                for (NSInteger j = 0; j < 10; j++)
-                {
-                    SMSpeaker *speaker = [[SMDataController sharedController] insertNewSpeaker];
-                    speaker.name       = [NSString stringWithFormat:@"name %ld", (long)j];
-                    speaker.surname    = [NSString stringWithFormat:@"surname %ld", (long)j];
-                    speaker.experience = @(j);
-                    speaker.birthDate  = @(j);
-                    NSMutableSet *conferenceSpeakers = [conference mutableSetValueForKey:@"speakers"];
-                    [conferenceSpeakers addObject:speaker];
-                    
-                    for (NSInteger k = 0; k < 50; k++)
-                    {
-                        SMPresentation *presentation = [[SMDataController sharedController] insertNewPresentation];
-                        presentation.title = [NSString stringWithFormat:@"title %ld", (long)k];
-                        presentation.comments = [NSString stringWithFormat:@"comments %ld", (long)k];
-                        presentation.minutes = @(k);
-                        presentation.speaker = speaker;
-                    }
-                }
-            }
-        }];
-        [[SMDataController sharedController].managedObjectContext save:nil];
-        
+    __weak typeof(self) weakSelf = self;
+    
+#warning add activity indicator
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[[SMDataController sharedController] conferenceEntityName]];
+    NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:NO selector:@selector(localizedCaseInsensitiveCompare:)];
+    request.sortDescriptors = @[titleSort];
+    request.fetchBatchSize = 60;
+    NSAsynchronousFetchRequest *asynchronousFetchRequest = [[NSAsynchronousFetchRequest alloc] initWithFetchRequest:request completionBlock:^(NSAsynchronousFetchResult *result) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.fetchedResultsController performFetch:nil];
-            [self.tableView reloadData];
-            self.navigationItem.title = [NSString stringWithFormat:@"%lu",self.fetchedResultsController.fetchedObjects.count];
+            // Process Asynchronous Fetch Result
+            [weakSelf.fetchedResultsController performFetch:nil];
+            [weakSelf.tableView reloadData];
         });
-    });
+    }];
+    
+    // Execute Asynchronous Fetch Request
+    [[SMDataController sharedController].managedObjectContext performBlock:^{
+        NSError *asynchronousFetchRequestError = nil;
+        NSAsynchronousFetchResult *asynchronousFetchResult = (NSAsynchronousFetchResult *)[[SMDataController sharedController].managedObjectContext executeRequest:asynchronousFetchRequest error:&asynchronousFetchRequestError];
+        //for warning dismiss
+        if (asynchronousFetchResult){;}
+        
+        if (asynchronousFetchRequestError) {
+            NSLog(@"Unable to execute asynchronous fetch result.");
+            NSLog(@"%@, %@", asynchronousFetchRequestError, asynchronousFetchRequestError.localizedDescription);
+        }
+    }];
 }
 
 #pragma mark - Accessors
@@ -99,6 +64,7 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[[SMDataController sharedController] conferenceEntityName]];
     NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:NO selector:@selector(localizedCaseInsensitiveCompare:)];
     request.sortDescriptors = @[titleSort];
+    request.fetchBatchSize = 20;
     NSManagedObjectContext *moc = [SMDataController sharedController].managedObjectContext;
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                     managedObjectContext:moc

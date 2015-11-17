@@ -45,13 +45,14 @@
     NSURL *documentsURL = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].lastObject;
     NSURL *storeURL = [documentsURL URLByAppendingPathComponent:@"SpeakersManager.sqlite"];
     
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+    // we should use dispatch_get_global_queue, but in this example we need to initialize our store synchronically
+//    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
         NSError *error = nil;
-        NSPersistentStoreCoordinator *psc = _managedObjectContext.persistentStoreCoordinator;
+        /*NSPersistentStoreCoordinator **/psc = _managedObjectContext.persistentStoreCoordinator;
         NSPersistentStore *store = [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];
         NSAssert(store != nil, @"Error initializing PSC: %@\n%@", [error localizedDescription], [error userInfo]);
         _managedObjectContext.undoManager = [NSUndoManager new];
-    });
+//    });
 }
 
 #pragma mark - Public

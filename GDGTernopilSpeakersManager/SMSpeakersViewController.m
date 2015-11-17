@@ -71,7 +71,6 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[[SMDataController sharedController] speakerEntityName]];
     NSSortDescriptor *lastNameSort = [NSSortDescriptor sortDescriptorWithKey:@"surname" ascending:NO selector:@selector(localizedCaseInsensitiveCompare:)];
     request.sortDescriptors = @[lastNameSort];
-#warning lfdghskldjg
     request.predicate = [NSPredicate predicateWithFormat:@"conferences CONTAINS[cd]  %@",self.conference];
     NSManagedObjectContext *moc = [SMDataController sharedController].managedObjectContext;
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
