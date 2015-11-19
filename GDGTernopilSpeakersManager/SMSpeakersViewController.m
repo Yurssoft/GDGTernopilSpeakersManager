@@ -123,7 +123,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"speaker_cell"];
     SMSpeaker *speaker = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",speaker.surname, speaker.name];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu",speaker.presentation.count];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long) speaker.presentation.count];
     return cell;
 }
 
