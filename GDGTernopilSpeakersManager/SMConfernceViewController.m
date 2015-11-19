@@ -25,32 +25,33 @@
 {
     [super viewDidLoad];
     __weak typeof(self) weakSelf = self;
-    
-#warning add activity indicator
-    
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[[SMDataController sharedController] conferenceEntityName]];
-    NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:NO selector:@selector(localizedCaseInsensitiveCompare:)];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:
+                               [[SMDataController sharedController] conferenceEntityName]];
+    NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title"
+                                                                ascending:NO
+                                                                 selector:@selector(localizedCaseInsensitiveCompare:)];
     request.sortDescriptors = @[titleSort];
     request.fetchBatchSize = 60;
-    NSAsynchronousFetchRequest *asynchronousFetchRequest = [[NSAsynchronousFetchRequest alloc] initWithFetchRequest:request completionBlock:^(NSAsynchronousFetchResult *result) {
+    NSAsynchronousFetchRequest *asynchronousFetchRequest = [[NSAsynchronousFetchRequest alloc]
+                                                            initWithFetchRequest:request
+                                                            completionBlock:^(NSAsynchronousFetchResult *result) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            // Process Asynchronous Fetch Result
             [weakSelf.fetchedResultsController performFetch:nil];
             [weakSelf.tableView reloadData];
         });
     }];
     
-    // Execute Asynchronous Fetch Request
     [[SMDataController sharedController].managedObjectContext performBlock:^{
         NSError *asynchronousFetchRequestError = nil;
-        NSAsynchronousFetchResult *asynchronousFetchResult = (NSAsynchronousFetchResult *)[[SMDataController sharedController].managedObjectContext executeRequest:asynchronousFetchRequest error:&asynchronousFetchRequestError];
+        NSAsynchronousFetchResult *asynchronousFetchResult = (NSAsynchronousFetchResult *)
+                                                [[SMDataController sharedController].managedObjectContext
+                                                executeRequest:asynchronousFetchRequest
+                                                 error:&asynchronousFetchRequestError];
         //for warning dismiss
         if (asynchronousFetchResult){;}
         
-        if (asynchronousFetchRequestError) {
-            NSLog(@"Unable to execute asynchronous fetch result.");
+        if (asynchronousFetchRequestError)
             NSLog(@"%@, %@", asynchronousFetchRequestError, asynchronousFetchRequestError.localizedDescription);
-        }
     }];
 }
 
@@ -61,10 +62,12 @@
     if (_fetchedResultsController) {
         return _fetchedResultsController;
     }
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:[[SMDataController sharedController] conferenceEntityName]];
-    NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:NO selector:@selector(localizedCaseInsensitiveCompare:)];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:
+                               [[SMDataController sharedController] conferenceEntityName]];
+    NSSortDescriptor *titleSort = [NSSortDescriptor sortDescriptorWithKey:@"title"
+                                                                ascending:NO
+                                                                 selector:@selector(localizedCaseInsensitiveCompare:)];
     request.sortDescriptors = @[titleSort];
-    request.fetchBatchSize = 20;
     NSManagedObjectContext *moc = [SMDataController sharedController].managedObjectContext;
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                     managedObjectContext:moc
@@ -87,7 +90,9 @@
 
 #pragma mark - UITableViewDataSource
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
@@ -132,10 +137,14 @@
     switch(type)
     {
         case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertSections:[NSIndexSet
+                                            indexSetWithIndex:sectionIndex]
+                          withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView deleteSections:[NSIndexSet
+                                            indexSetWithIndex:sectionIndex]
+                          withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeMove:
         case NSFetchedResultsChangeUpdate:
@@ -151,17 +160,22 @@
 {
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeDelete:
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeUpdate:
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeMove:
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
+                                  withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }

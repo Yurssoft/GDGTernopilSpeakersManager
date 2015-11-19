@@ -394,7 +394,7 @@
         <!--Navigation Controller-->
         <scene sceneID="9nN-KU-uYT">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GEU-J8-sC0" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="SMSpeakersViewControllerNAV" storyboardIdentifier="SMSpeakersViewControllerNAV" automaticallyAdjustsScrollViewInsets="NO" id="GEU-J8-sC0" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="m1Z-vK-cTS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

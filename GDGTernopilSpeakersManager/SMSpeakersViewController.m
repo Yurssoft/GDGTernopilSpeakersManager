@@ -85,7 +85,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SMSpeakerDeailsViewController *speakerDetails = (SMSpeakerDeailsViewController *) [self.storyboard instantiateViewControllerWithIdentifier:@"SMSpeakerDeailsViewController"];
+    SMSpeakerDeailsViewController *speakerDetails = (SMSpeakerDeailsViewController *)
+                    [self.storyboard instantiateViewControllerWithIdentifier:@"SMSpeakerDeailsViewController"];
     SMSpeaker *selectedSpeaker = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [speakerDetails setTheSpeakerForDetails:selectedSpeaker];
     [self.navigationController pushViewController:speakerDetails animated:YES];
@@ -94,7 +95,9 @@
 
 #pragma mark - UITableViewDataSource
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {

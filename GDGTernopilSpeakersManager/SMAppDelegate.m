@@ -22,41 +22,43 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [UIApplication sharedApplication].applicationSupportsShakeToEdit = YES;
-    
-        [[SMDataController sharedController].managedObjectContext performBlock:^{
-            //populating database
-            for (NSInteger i = 0; i < 1500; i++)
+    //uncomment this for database populating
+//    [self populateDatabase];
+    return YES;
+}
+
+- (void)populateDatabase
+{
+    [[SMDataController sharedController].managedObjectContext performBlock:^{
+        //populating database
+        for (NSInteger i = 0; i < 1500; i++)
+        {
+            SMConference *conference = [[SMDataController sharedController] insertNewConference];
+            conference.title         = [NSString stringWithFormat:@"title %@", [NSDate date]];
+            conference.place         = [NSString stringWithFormat:@"place %ld", (long)i];
+            conference.date          = [NSDate date];
+            
+            for (NSInteger j = 0; j < 10; j++)
             {
-                SMConference *conference = [[SMDataController sharedController] insertNewConference];
-                conference.title         = [NSString stringWithFormat:@"title %@", [NSDate date]];
-                conference.place         = [NSString stringWithFormat:@"place %ld", (long)i];
-                conference.date          = [NSDate date];
-                
-                for (NSInteger j = 0; j < 20; j++)
+                SMSpeaker *speaker = [[SMDataController sharedController] insertNewSpeaker];
+                speaker.name       = [NSString stringWithFormat:@"name %ld", (long)j];
+                speaker.surname    = [NSString stringWithFormat:@"surname %ld", (long)j];
+                speaker.experience = @(j);
+                speaker.birthDate  = @(j);
+                NSMutableSet *conferenceSpeakers = [conference mutableSetValueForKey:@"speakers"];
+                [conferenceSpeakers addObject:speaker];
+                for (NSInteger k = 0; k < 5; k++)
                 {
-                    SMSpeaker *speaker = [[SMDataController sharedController] insertNewSpeaker];
-                    speaker.name       = [NSString stringWithFormat:@"name %ld", (long)j];
-                    speaker.surname    = [NSString stringWithFormat:@"surname %ld", (long)j];
-                    speaker.experience = @(j);
-                    speaker.birthDate  = @(j);
-                    NSMutableSet *conferenceSpeakers = [conference mutableSetValueForKey:@"speakers"];
-                    [conferenceSpeakers addObject:speaker];
-                    for (NSInteger k = 0; k < 10; k++)
-                    {
-                        SMPresentation *presentation = [[SMDataController sharedController] insertNewPresentation];
-                        presentation.title = [NSString stringWithFormat:@"title %ld", (long)k];
-                        presentation.comments = [NSString stringWithFormat:@"comments %ld", (long)k];
-                        presentation.minutes = @(k);
-                        presentation.speaker = speaker;
-                    }
+                    SMPresentation *presentation = [[SMDataController sharedController] insertNewPresentation];
+                    presentation.title = [NSString stringWithFormat:@"title %ld", (long)k];
+                    presentation.comments = [NSString stringWithFormat:@"comments %ld", (long)k];
+                    presentation.minutes = @(k);
+                    presentation.speaker = speaker;
                 }
             }
-            [[SMDataController sharedController].managedObjectContext save:nil];
-        }];
-    
-    
-    
-    return YES;
+        }
+        [[SMDataController sharedController].managedObjectContext save:nil];
+    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
