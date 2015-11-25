@@ -28,4 +28,9 @@
 - (SMConference *)insertNewConference;
 - (NSString *)conferenceEntityName;
 
+- (SMSpeaker *)insertNewSpeakerInContext:(NSManagedObjectContext *)context;
+
+- (SMPresentation *)insertNewPresentationInContext:(NSManagedObjectContext *)context;
+
+- (SMConference *)insertNewConferenceInContext:(NSManagedObjectContext *)context;
 @end

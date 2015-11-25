@@ -65,22 +65,12 @@
     return speaker;
 }
 
-- (NSString *)speakerEntityName
-{
-    return @"SMSpeaker";
-}
-
 - (SMPresentation *)insertNewPresentation
 {
     SMPresentation *presentation = (SMPresentation *) [NSEntityDescription insertNewObjectForEntityForName:[self presentationEntityName]
                                                                                     inManagedObjectContext:self.managedObjectContext];
     presentation.presentationId = [self uuid];
     return presentation;
-}
-
-- (NSString *)presentationEntityName
-{
-    return @"SMPresentation";
 }
 
 - (SMConference *)insertNewConference
@@ -91,9 +81,43 @@
     return conference;
 }
 
+- (SMSpeaker *)insertNewSpeakerInContext:(NSManagedObjectContext *)context
+{
+    SMSpeaker *speaker = (SMSpeaker *) [NSEntityDescription insertNewObjectForEntityForName:[self speakerEntityName]
+                                                                     inManagedObjectContext:context];
+    speaker.speakerId = [self uuid];
+    return speaker;
+}
+
+- (SMPresentation *)insertNewPresentationInContext:(NSManagedObjectContext *)context
+{
+    SMPresentation *presentation = (SMPresentation *) [NSEntityDescription insertNewObjectForEntityForName:[self presentationEntityName]
+                                                                                    inManagedObjectContext:context];
+    presentation.presentationId = [self uuid];
+    return presentation;
+}
+
+- (SMConference *)insertNewConferenceInContext:(NSManagedObjectContext *)context
+{
+    SMConference *conference = (SMConference *) [NSEntityDescription insertNewObjectForEntityForName:[self conferenceEntityName]
+                                                                              inManagedObjectContext:context];
+    conference.conferenceId = [self uuid];
+    return conference;
+}
+
 - (NSString *)conferenceEntityName
 {
     return @"SMConference";
+}
+
+- (NSString *)presentationEntityName
+{
+    return @"SMPresentation";
+}
+
+- (NSString *)speakerEntityName
+{
+    return @"SMSpeaker";
 }
 
 - (NSString *)uuid
