@@ -749,12 +749,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Conference" id="GbM-PC-RdF">
+                        <barButtonItem key="leftBarButtonItem" title="Fetching...." id="UIg-Rx-rq7"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ctv-0l-cBy">
                             <connections>
                                 <segue destination="umI-MT-Nov" kind="presentation" modalTransitionStyle="flipHorizontal" id="AjF-tM-ZAV"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="statusButton" destination="UIg-Rx-rq7" id="N8e-ma-AAR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uVp-kF-Van" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

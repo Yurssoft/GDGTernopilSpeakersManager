@@ -13,9 +13,13 @@
 #import "SMPresentation.h"
 #import "SMConference.h"
 
+static void *ProgressContext = &ProgressContext;
+
 @interface SMConfernceViewController () < NSFetchedResultsControllerDelegate >
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *statusButton;
 
 @end
 
@@ -35,13 +39,21 @@
     NSAsynchronousFetchRequest *asynchronousFetchRequest = [[NSAsynchronousFetchRequest alloc]
                                                             initWithFetchRequest:request
                                                             completionBlock:^(NSAsynchronousFetchResult *result) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.fetchedResultsController performFetch:nil];
-            [weakSelf.tableView reloadData];
-        });
-    }];
+                                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                                    [result.progress removeObserver:weakSelf forKeyPath:@"completedUnitCount" context:ProgressContext];
+                                                                    [weakSelf.fetchedResultsController performFetch:nil];
+                                                                    [weakSelf.tableView reloadData];
+                                                                    NSString *status = [NSString stringWithFormat:@"Fetched %li Records", weakSelf.fetchedResultsController.fetchedObjects.count];
+                                                                    self.statusButton.title = status;
+                                                                });
+                                                            }];
     
     [[SMDataController sharedController].managedObjectContext performBlock:^{
+        
+        NSProgress *progress = [NSProgress progressWithTotalUnitCount:1];
+        
+        [progress becomeCurrentWithPendingUnitCount:1];
+        
         NSError *asynchronousFetchRequestError = nil;
         NSAsynchronousFetchResult *asynchronousFetchResult = (NSAsynchronousFetchResult *)
                                                 [[SMDataController sharedController].managedObjectContext
@@ -52,7 +64,20 @@
         
         if (asynchronousFetchRequestError)
             NSLog(@"%@, %@", asynchronousFetchRequestError, asynchronousFetchRequestError.localizedDescription);
+        
+        [asynchronousFetchResult.progress addObserver:self forKeyPath:@"completedUnitCount" options:NSKeyValueObservingOptionNew context:ProgressContext];
+        
+        [progress resignCurrent];
     }];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (context == ProgressContext) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *status = [NSString stringWithFormat:@"Fetched %li Records", (long)[[change objectForKey:@"new"] integerValue]];
+            self.statusButton.title = status;
+        });
+    }
 }
 
 #pragma mark - Accessors
@@ -124,65 +149,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView beginUpdates];
-}
-
 - (void)controller:(NSFetchedResultsController *)controller
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex
      forChangeType:(NSFetchedResultsChangeType)type
 {
-    switch(type)
-    {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet
-                                            indexSetWithIndex:sectionIndex]
-                          withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet
-                                            indexSetWithIndex:sectionIndex]
-                          withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeMove:
-        case NSFetchedResultsChangeUpdate:
-            break;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller
-   didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath
-     forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeUpdate:
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeMove:
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-            [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
-                                  withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
+    [self.tableView reloadData];
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.tableView endUpdates];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Undo manager
@@ -194,8 +171,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (NSUndoManager*)undoManager
 {
-    return  [SMDataController sharedController].managedObjectContext.undoManager;
+    return [SMDataController sharedController].managedObjectContext.undoManager;
 }
-
 
 @end

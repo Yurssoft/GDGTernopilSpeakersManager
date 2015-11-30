@@ -11,6 +11,7 @@
 #import "SMSpeaker.h"
 #import "SMPresentation.h"
 #import "SMConference.h"
+#include <stdlib.h>
 
 @interface SMAppDelegate ()
 
@@ -39,37 +40,36 @@
                                                  selector:@selector(managedObjectContextDidSave:)
                                                      name:NSManagedObjectContextDidSaveNotification
                                                    object:backgroundContextForCreatingObjects];
-        for (NSInteger i = 0; i < 15; i++)
-        {
-            SMConference *conference = [[SMDataController sharedController] insertNewConferenceInContext:backgroundContextForCreatingObjects];
-            conference.title         = [NSString stringWithFormat:@"title %@", [NSDate date]];
-            conference.place         = [NSString stringWithFormat:@"place %ld", (long)i];
-            conference.date          = [NSDate date];
-            
-            for (NSInteger j = 0; j < 7; j++)
+        dispatch_group_t group = dispatch_group_create();
+        dispatch_semaphore_t sem = dispatch_semaphore_create(2);
+        dispatch_group_async(group, backgroundQueue, ^{
+            dispatch_apply(20000, backgroundQueue, ^(size_t i)
+                           {
+                               SMConference *conference = [[SMDataController sharedController] insertNewConferenceInContext:backgroundContextForCreatingObjects];
+                               conference.place         = [NSString stringWithFormat:@"place %@", [NSDate date]];
+                               conference.title         = [NSString stringWithFormat:@"title %ld", (long)i * arc4random_uniform(777)];
+                               conference.date          = [NSDate date];
+                               dispatch_apply(2, backgroundQueue, ^(size_t j)
+                                              {
+                                                  SMSpeaker *speaker = [[SMDataController sharedController] insertNewSpeakerInContext:backgroundContextForCreatingObjects];
+                                                  speaker.name       = [NSString stringWithFormat:@"name %ld", (long)j * arc4random_uniform(777)];
+                                                  speaker.surname    = [NSString stringWithFormat:@"surname %ld", (long)j * arc4random_uniform(777)];
+                                                  speaker.experience = @(j);
+                                                  speaker.birthDate  = @(j);
+                                                  NSMutableSet *conferenceSpeakers = [conference mutableSetValueForKey:@"speakers"];
+                                                  [conferenceSpeakers addObject:speaker];
+                                              });
+                           });
+            dispatch_semaphore_signal(sem);
+        });
+        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+        dispatch_group_notify(group, backgroundQueue, ^{
+            if ([backgroundContextForCreatingObjects hasChanges])
             {
-                SMSpeaker *speaker = [[SMDataController sharedController] insertNewSpeakerInContext:backgroundContextForCreatingObjects];
-                speaker.name       = [NSString stringWithFormat:@"name %ld", (long)j];
-                speaker.surname    = [NSString stringWithFormat:@"surname %ld", (long)j];
-                speaker.experience = @(j);
-                speaker.birthDate  = @(j);
-                NSMutableSet *conferenceSpeakers = [conference mutableSetValueForKey:@"speakers"];
-                [conferenceSpeakers addObject:speaker];
-                for (NSInteger k = 0; k < 3; k++)
-                {
-                    SMPresentation *presentation = [[SMDataController sharedController] insertNewPresentationInContext:backgroundContextForCreatingObjects];
-                    presentation.title = [NSString stringWithFormat:@"title %ld", (long)k];
-                    presentation.comments = [NSString stringWithFormat:@"comments %ld", (long)k];
-                    presentation.minutes = @(k);
-                    presentation.speaker = speaker;
-                }
+                NSError *error = nil;
+                [backgroundContextForCreatingObjects save:&error];
             }
-        }
-        if ([backgroundContextForCreatingObjects hasChanges]) {
-            // Save Changes
-            NSError *error = nil;
-            [backgroundContextForCreatingObjects save:&error];
-        }
+        });
     });
 }
 
